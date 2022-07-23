@@ -1,34 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-// import App from "./App";
-import { FaStar } from "react-icons/fa";
-
-const createArray = (length) => [...Array(length)];
-
-function Star({ selected = false, onSelect }) {
-  return <FaStar color={selected ? "red" : "grey"} onClick={onSelect} />;
-}
-
-function StarRating({ totalStars }) {
-  const [selectedStars, setSelectedStars] = useState(0);
-  return (
-    <>
-      {createArray(totalStars).map((n, i) => (
-        <Star
-          key={i}
-          selected={selectedStars > i}
-          onSelect={() => setSelectedStars(i + 1)}
-        />
-      ))}
-      <p>
-        {selectedStars} out of {totalStars} stars
-      </p>
-    </>
-  );
-}
 
 function App() {
-  return <StarRating totalStars={10} />;
+  const [name, setName] = useState("Jan");
+  const [admin, setAdmin] = useState(false);
+
+  useEffect(() => {
+    console.log(name);
+  });
+
+  useEffect(() => {
+    console.log(admin);
+  }, [admin]);
+  return (
+    <section>
+      <p>Congratulations {name}</p>
+      <button onClick={() => setName("Will")}>Change Winner</button>
+
+      <p>{admin ? "admin" : "not Admin"}</p>
+      <button onClick={() => setAdmin(true)}>Make Admin</button>
+    </section>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
