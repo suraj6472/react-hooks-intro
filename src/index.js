@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useReducer } from "react";
 import ReactDOM from "react-dom";
 
 function App() {
-    const [data, setData] = useState([]);
+  const [number, setNumber] = useReducer((number, newNumber) => {
+    return number + newNumber;
+  }, 0);
 
-    useEffect(() => {
-      fetch("https://api.github.com/users")
-        .then((response) => response.json())
-        .then((response) => setData(response));
-    }, []);
-
-    return (
-      <>
-        <ul>
-          {data.map((user) => (
-            <li key={user.id}>{user.login}</li>
-          ))}
-        </ul>
-        <button onClick={() => setData([])}>Clear Data</button>
-      </>
-    );
+  return (
+    <>
+      <p>{number}</p>
+      <button onClick={() => setNumber(2)}>Click</button>
+    </>
+  );
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
