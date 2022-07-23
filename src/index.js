@@ -2,25 +2,24 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 function App() {
-  const [name, setName] = useState("Jan");
-  const [admin, setAdmin] = useState(false);
+    const [data, setData] = useState([]);
 
-  useEffect(() => {
-    console.log(name);
-  });
+    useEffect(() => {
+      fetch("https://api.github.com/users")
+        .then((response) => response.json())
+        .then((response) => setData(response));
+    }, []);
 
-  useEffect(() => {
-    console.log(admin);
-  }, [admin]);
-  return (
-    <section>
-      <p>Congratulations {name}</p>
-      <button onClick={() => setName("Will")}>Change Winner</button>
-
-      <p>{admin ? "admin" : "not Admin"}</p>
-      <button onClick={() => setAdmin(true)}>Make Admin</button>
-    </section>
-  );
+    return (
+      <>
+        <ul>
+          {data.map((user) => (
+            <li key={user.id}>{user.login}</li>
+          ))}
+        </ul>
+        <button onClick={() => setData([])}>Clear Data</button>
+      </>
+    );
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
