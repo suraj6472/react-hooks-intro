@@ -1,21 +1,20 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 function App() {
-  const sound = useRef();
-  const color = useRef();
-
+  const [sound, setSound] = useState('');
+  const [color, setColor] = useState('#000000');
   function submitHandler(e) {
     e.preventDefault(); 
-    alert(sound.current.value + " -- " + color.current.value);
-    sound.current.value = "";
-    color.current.value = "";
+    alert(`${sound}  -- ${color}`);
+    setColor('#000000')
+    setSound('');
   }
 
   return (
     <form onSubmit={submitHandler}>
-      <input type="text" ref={sound} />
-      <input type="color" ref={color} />
+      <input type="text" onChange={(e) => setSound(e.target.value)} value={sound} />
+      <input type="color" onChange={(e) => setColor(e.target.value)} value={color} />
       <button>Add</button>
     </form>
   );
