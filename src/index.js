@@ -6,8 +6,10 @@ function App() {
   const color = useRef();
 
   function submitHandler(e) {
-    e.preventDefault();
+    e.preventDefault(); 
     alert(sound.current.value + " -- " + color.current.value);
+    sound.current.value = "";
+    color.current.value = "";
   }
 
   return (
