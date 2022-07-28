@@ -1,24 +1,20 @@
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom";
-import { useInput } from "./useInput";
+import App from "./App";
 
-function App() {
-  const [soundProps, resetSound] = useInput("");
-  const [colorProps, resetColor] = useInput("#000000");
-  function submitHandler(e) {
-    e.preventDefault();
-    alert(`${soundProps.value}  -- ${colorProps.value}`);
-    resetColor();
-    resetSound();
-  }
+export const TreesContaxt = createContext();
 
-  return (
-    <form onSubmit={submitHandler}>
-      <input type="text" {...soundProps} />
-      <input type="color" {...colorProps} />
-      <button>Add</button>
-    </form>
-  );
-}
+const trees = [
+  { id: "1", type: "Maple" },
+  { id: "2", type: "Oak" },
+  { id: "3", type: "Family" },
+  { id: "4", type: "Component" },
+];
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <TreesContaxt.Provider value={trees}>
+    <App />
+  </TreesContaxt.Provider>,
+
+  document.getElementById("root")
+);
